@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sandhra/pages/home_page.dart';
+import 'package:sandhra/pages/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -16,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   bool _isLoading = false;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -36,26 +38,28 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
 
-      // If login successful, navigate to home page
+
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage()),
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
       );
     } catch (e) {
       // Handle login failure
       print('Login failed: $e');
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Login Failed'),
-            content: Text('Invalid email or password. Please try again.'),
+            title: const Text('Login Failed'),
+            content: const Text('Invalid email or password. Please try again.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -85,10 +89,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 100,),
+            const Text('Welcome Back',style: TextStyle(fontSize: 26),),
+            const Text('Log in to continue',style: TextStyle(fontSize: 12,color: Colors.deepPurple),),
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(
@@ -112,8 +118,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 20),
+            Align(alignment : Alignment.centerRight,child: TextButton(onPressed: (){}, child: const Text('Forgot Password'))),
+            const SizedBox(height: 20),
             _isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : SizedBox(
               height: 50,
               width: 300,
@@ -128,6 +136,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Don't have an account ?"),
+                TextButton(onPressed: ()
+                {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupPage()));
+                },child: const Text('create a new account'))
+              ],
+            )
           ],
         ),
       ),

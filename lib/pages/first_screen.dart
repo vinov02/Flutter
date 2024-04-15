@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandhra/pages/farmers/login_page.dart';
 import 'package:sandhra/pages/login_page.dart';
 import 'package:sandhra/pages/signup_page.dart';
 
@@ -30,18 +31,18 @@ class FirstScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
                 },
-                child: const Text('Login',style: TextStyle(color: Colors.black)),
+                child: const Text('Login as Customer',style: TextStyle(color: Colors.black)),
               ),
             ),
-            const SizedBox(height: 20), // Space between buttons
+            const SizedBox(height: 40), // Space between title and buttons
             SizedBox(
               height: 40,
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPageFarmer()));
                 },
-                child: const Text('Sign Up',style: TextStyle(color: Colors.black),),
+                child: const Text('Login as Farmer',style: TextStyle(color: Colors.black)),
               ),
             ),
           ],
